@@ -175,6 +175,7 @@
           data: {id: monster},
           type: "post",
           success: function (data) {
+            
             //合成完成直接获取下一个怪物
             if(data.status >= 1){
               //合成动画1700    
@@ -182,6 +183,7 @@
               //   $('#roleImg').attr('src', data.monster['image']);
               //   $('#roleImg').attr('alt', data.monster['sort']);
               // })
+              
               merge(data.monster['image'], data.monster['sort']);
               setTimeout(function () {
                 $("#shiqi").html(data.monster['shiqi']);
@@ -192,10 +194,11 @@
                 $("#tedian").html(data.monster['tedian']);
                 $(".compound").attr('monster', data.monster['id']);
               }, 2500);
+        
             }
             var timer = setTimeout(function () {
               if (data.status == 1) { //没有下一个怪物了
-                if(data.monster['sort'] >= 11){
+                if(data.monster['sort'] >= 3){
                   setTimeout(function () {
                     location.reload()
                   }, 2500);
@@ -244,19 +247,19 @@
       success: function(res){
         var data = res['queue'];
         var user = res['user'];
-        var number = queue_id*12-data['queue_id'];
-        if(number <= 10){
-          if(number <= 0){
-            number = 0;
-          }
-          // $(".invadeinfo").append("<span class='content'>距离契约神兽还差:"+number+"</br></span>");
-          var number = parseInt($("#log_id").attr("all_number"))
-          if(number + 1 > 4){
-            $(".content").first().remove()
-          }else{
-            $("#log_id").attr("all_number", number+1);
-          }
-        }
+        // var number = queue_id*12-data['queue_id'];
+        // if(number <= 10){
+        //   if(number <= 0){
+        //     number = 0;
+        //   }
+        //   // $(".invadeinfo").append("<span class='content'>距离契约神兽还差:"+number+"</br></span>");
+        //   var number = parseInt($("#log_id").attr("all_number"))
+        //   if(number + 1 > 4){
+        //     $(".content").first().remove()
+        //   }else{
+        //     $("#log_id").attr("all_number", number+1);
+        //   }
+        // }
         if(user['need_kill_number'] > user['already_kill_number']){
           if ($(".compound:hidden").length) {
             console.log(111);
@@ -298,7 +301,7 @@
     phoneList.push(phone)
   }
   for(let i of phoneList) {
-    $('.infoList').append('<li>恭喜<span class="phone">'+ i +'</span>已经成功出局</li>')
+    $('.infoList').append('<li>恭喜<span class="phone">'+ i +'</span>玩家契约达成</li>')
   }
   $(".txtScroll-top").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:8,interTime:50,trigger:"click"});
 </script>

@@ -83,7 +83,7 @@
         </div>
         <div class="test"></div>
         <div class="pb">
-          <button id="find" data-role="button" data-theme="c">寻找契约神兽</button>
+          <button id="find" data-role="button" data-theme="c">合成福禄寿</button>
         </div>
         
         <div class="rule-wrapper">
@@ -94,21 +94,14 @@
         </div>
         <div class="find-wrapper">
           <ul class="inner">
-            {if condition="$re.level >= 1"}
-            <li class="item"><a href="{:url('News/invade', array('level'=>100))}" data-ajax="false">淘气狐狸:100能量<img src="__HOME__/img/lv1.png" alt=""></a></li>
-            {/if}
-            {if condition="$re.level >= 2"}
-            <li class="item"><a href="{:url('News/invade', array('level'=>1000))}" data-ajax="false">荣耀青龙:1000能量<img src="__HOME__/img/lv2.png" alt=""></a></li>
-            {/if}
-            {if condition="$re.level >= 3"}
-            <li class="item"><a href="{:url('News/invade', array('level'=>10000))}" data-ajax="false">尊贵白虎:10000能量<img src="__HOME__/img/lv3.png" alt=""></a></li>
-            {/if}
-            {if condition="$re.level >= 4"}
-            <li class="item"><a href="{:url('News/invade', array('level'=>100000))}" data-ajax="false">永恒朱雀:100000能量<img src="__HOME__/img/lv4.png" alt=""></a></li>
-            {/if}
-            {if condition="$re.level >= 5"}
-            <li class="item"><a href="{:url('News/invade', array('level'=>1000000))}" data-ajax="false">最强玄武:1000000能量<img src="__HOME__/img/lv5.png" alt=""></a></li>
-            {/if}
+            
+            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>1))}" data-ajax="false">福:100能量<img src="__HOME__/img/lv1.png" alt=""></a></li>
+           
+            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>2))}" data-ajax="false">禄:100能量<img src="__HOME__/img/lv2.png" alt=""></a></li>
+           
+            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>3))}" data-ajax="false">寿:100能量<img src="__HOME__/img/lv3.png" alt=""></a></li>
+         
+           
           </ul>
         </div>
         <div class="pay-wrapper">
