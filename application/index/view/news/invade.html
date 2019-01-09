@@ -91,7 +91,8 @@
       .txtScroll-top .hd ul{ float:right; overflow:hidden; zoom:1; margin-top:10px; }
       .txtScroll-top .hd ul li{ float:left;  width:9px; height:9px; overflow:hidden; margin-right:5px; text-indent:-999px; cursor:pointer; background:url("images/icoCircle.gif") 0 -9px no-repeat; }
       .txtScroll-top .hd ul li.on{ background-position:0 0; }
-      .txtScroll-top .bd{ padding:15px;  }
+      .txtScroll-top .bd{ padding:15px 15px 15px 20px;  }
+      .infoList li {font-size: 12px;color:#3E2013}
       .txtScroll-top .infoList li{ height:24px; line-height:24px;   }
       .txtScroll-top .infoList li .date{ float:right; color:#999;  }
       .invadeinfo {
@@ -104,7 +105,7 @@
 <body>
   <div data-role="page" id="invade" data-theme="c">
     <div class="ui-content" data-role="main" data-theme="c">
-      <div class="notice">{$lb_place.name}</div>
+      <!-- <div class="notice">{$lb_place.name}</div> -->
       <div class="roleBg"><img src="__HOME__/img/light.png" alt=""></div>
       {if condition="$queue.need_kill_number > $queue.already_kill_number"}
       <?php $status = 1; ?> {else /}

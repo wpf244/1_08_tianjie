@@ -48,8 +48,13 @@
       
       .find-wrapper ul {
         list-style: none;
-        margin: 30px 30px;
+        margin: 130px 30px;
+        display: flex;
+        height: 60%;
+        flex-direction: column;
+        justify-content: space-around;
         padding-left: 0;
+        box-sizing: border-box;
       }
       .find-wrapper .item {
         margin-bottom: 25px;
@@ -95,11 +100,11 @@
         <div class="find-wrapper">
           <ul class="inner">
             
-            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>1))}" data-ajax="false">福:100能量<img src="__HOME__/img/lv1.png" alt=""></a></li>
+            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>1))}" data-ajax="false">紫薇大帝-福星:100能量<img src="__HOME__/img/lv1.png" alt=""></a></li>
            
-            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>2))}" data-ajax="false">禄:100能量<img src="__HOME__/img/lv2.png" alt=""></a></li>
+            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>2))}" data-ajax="false">文昌帝君-禄星:100能量<img src="__HOME__/img/lv2.png" alt=""></a></li>
            
-            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>3))}" data-ajax="false">寿:100能量<img src="__HOME__/img/lv3.png" alt=""></a></li>
+            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>3))}" data-ajax="false">南极老人-寿星:100能量<img src="__HOME__/img/lv3.png" alt=""></a></li>
          
            
           </ul>
