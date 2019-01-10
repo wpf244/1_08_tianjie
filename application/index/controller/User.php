@@ -220,6 +220,8 @@ class User extends BaseHome
 
     public function recharge_change(){
 
+        $re=db("lb")->where("fid=7")->find();
+        $this->assign("re",$re);
         return $this->fetch();
 
     }
