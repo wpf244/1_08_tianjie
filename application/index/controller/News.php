@@ -33,6 +33,10 @@ class News extends BaseHome
                 return $judge == $action ? $this->fetch($judge) : $this->redirect($judge);
 
             }
+            $ti=db("queue")->where("uid=$uid and status=1 and look=1 and ti=0")->find();
+            if($ti){
+                $this->redirect("User/withdraw");
+            }
 
             //页面数据
 
@@ -108,7 +112,7 @@ class News extends BaseHome
 
      * 需要判断会员是否刚刚完成入侵（排队返现成功）
 
-     * 需要判断能量是否充足（100点）
+     * 需要判断天界币是否充足（100点）
 
      * 判断是否有需要击杀的怪物
 
@@ -141,23 +145,23 @@ class News extends BaseHome
 
         $monster = array();
 
-        do{
+        // do{
 
-            $table_name = $i == 1 ? 'queue' : 'queue_'.$i;
+            $table_name = "queue";
 
             $queue = db($table_name)->where("uid=$uid")->where("status=0")->find();
        //    var_dump($i);
             if($queue){
 
-                $monster = db("monster")->where("sort", $queue['already_kill_number'])->where('level', $i)->find();
+                $monster = db("monster")->where("sort", $queue['already_kill_number'])->where('level', $queue['type'])->find();
 
-                break;
+           //     break;
 
             }
 
-            $i++;
+        //     $i++;
 
-        }while($i < 4);
+        // }while($i < 4);
         
         $this->assign('queue', $queue);//排队
 
@@ -211,15 +215,15 @@ class News extends BaseHome
 
             //没有传值
          //   var_dump($queue);exit;
-            return $this->redirect("User/recharge_change");
+            return $this->redirect("User/bank_card");
 
         }
     
         if($user['money'] < $post_money){
 
-            //能量币不足，去充值
+            //天界币不足，去充值
             
-            return $this->redirect("User/recharge_change");
+            return $this->redirect("User/bank_card");
 
         }
 
@@ -237,21 +241,22 @@ class News extends BaseHome
 
             }
 
-            if($alig == 1){//福
+            // if($alig == 1){//福
 
-                $table_name = 'queue';
+            //     $table_name = 'queue';
 
-            }elseif($alig == 2){//禄
+            // }elseif($alig == 2){//禄
 
-                $table_name = 'queue_2';
+            //     $table_name = 'queue_2';
 
-            }elseif($alig == 3){//寿
+            // }elseif($alig == 3){//寿
 
-                $table_name = 'queue_3';
+            //     $table_name = 'queue_3';
 
-            }
+            // }
+            $table_name='queue';
 
-            $res_two = db($table_name)->insertGetId(['uid'=>$uid, 'start_time'=>time()]); 
+            $res_two = db($table_name)->insertGetId(['uid'=>$uid, 'start_time'=>time(),'type'=>$alig]); 
             
             if(!$res_two){
 
@@ -308,7 +313,7 @@ class News extends BaseHome
 
             }
 
-            // $this->ddsc_log('会员'.$user['username'].'进入天界');
+            // $this->ddsc_log('会员'.$user['username'].'进入天界币');
 
             Db::commit();    
 
@@ -332,7 +337,7 @@ class News extends BaseHome
 
      * 完成入侵页面
 
-     * 修改已查看状态，增加能量
+     * 修改已查看状态，增加天界币
 
      *
 
@@ -344,57 +349,58 @@ class News extends BaseHome
 
         $uid=session("userid");
 
-        $i = 1;
+        // $i = 1;
 
-        do{
+        // do{
 
-            $table_name = $i == 1 ? 'queue' : 'queue_'.$i;
+            $table_name = "queue";
 
             $over_look_queue = db($table_name)->where("uid=$uid")->where("status=1")->where("look=0")->find();
+            
 
-            if($over_look_queue){
+        //     if($over_look_queue){
 
-                break;
+        //         break;
 
-            }
+        //     }
 
-            $i++;
+        //     $i++;
 
-        }while($i < 4);
+        // }while($i < 4);
 
         if(!$over_look_queue){
 
             return $this->redirect("News/index");
 
         }
-
+     //   var_dump($over_look_queue);exit;
         Db::startTrans();
-
+        // $i=1;
         try{
 
             $res_one = db($table_name)->where("uid=$uid")->where("status=1")->where("look=0")->setField('look',1);
 
-            if($i == 1){
+            // if($i == 1){
 
-                $money = 100;
+            //     $money = 100;
 
-            }elseif($i == 2){
+            // }elseif($i == 2){
 
-                $money = 1000;
+            //     $money = 1000;
 
-            }elseif($i == 3){
+            // }elseif($i == 3){
 
-                $money = 10000;
+            //     $money = 10000;
 
-            }else{
+            // }else{
 
-                $money == 0;
+            //     $money == 0;
 
-            }
+            // }
            
-            $res_two = db("user")->where("uid=$uid")->setInc('money', 200); //给出队会员能量
+            $res_two = db("user")->where("uid=$uid")->setInc('money', 200); //给出队会员天界币
 
-            if(!$res_one || !$res_two || $money == 0){
+            if(!$res_one || !$res_two){
 
                 throw new \Exception("系统错误，请再次尝试！");
 
@@ -402,7 +408,7 @@ class News extends BaseHome
 
             $user = db("user")->where("uid=$uid")->find();
 
-            $i++;
+         //   $i++;
 
            
 
@@ -417,8 +423,10 @@ class News extends BaseHome
             return $this->redirect("News/index");
 
         }
+        $type=$over_look_queue['type'];
+       // $money=200;
 
-        $this->assign('money', $money);
+        $this->assign('type', $type);
 
         $this->assign('detail', $over_look_queue);
 
@@ -446,23 +454,24 @@ class News extends BaseHome
 
         $uid=session("userid");
 
-        $i = 1;
+        // $i = 1;
 
-        do{
+        // do{
 
-            $table_name = $i == 1 ? 'queue' : 'queue_'.$i;
+        //     $table_name = $i == 1 ? 'queue' : 'queue_'.$i;
 
-            $queue = db($table_name)->where("uid=$uid")->where("status=0")->find();
+        //     $queue = db($table_name)->where("uid=$uid")->where("status=0")->find();
 
-            if($queue){
+        //     if($queue){
 
-                break;
+        //         break;
 
-            }
+        //     }
 
-            $i++;
+        //     $i++;
 
-        }while($i < 4);
+        // }while($i < 4);
+        $table_name="queue";
 
         $queue = db($table_name)->where("uid=$uid")->where("status=0")->find();
 
@@ -524,15 +533,15 @@ class News extends BaseHome
 
         // $id = Request::instance()->param('id', 0);
 
-        $queue_table = Request::instance()->param('queue_table', '');
+     //   $queue_table = Request::instance()->param('queue_table', '');
 
         // $res = db("log")->where("id", ">", $id)->select();
 
-        $queue = db($queue_table)->order("queue_id desc")->find();
+        $queue = db("queue")->order("queue_id desc")->find();
 
         $uid=session("userid");
 
-        $user = db($queue_table)->where("uid=$uid")->where("status=0")->find();
+        $user = db("queue")->where("uid=$uid")->where("status=0")->find();
 
         return array('queue'=>$queue,'user'=>$user);
 
@@ -556,13 +565,13 @@ class News extends BaseHome
 
     protected function judge($uid){
 
-        $i = 1;
+    //    $i = 1;
 
         $queueing = array();
 
-        do{
+    //    do{
 
-            $table_name = $i == 1 ? 'queue' : 'queue_'.$i;
+            $table_name = "queue";
 
             $queueing = db($table_name)->where("uid=$uid")->where("status=0")->find();
 
@@ -582,9 +591,9 @@ class News extends BaseHome
 
             }
 
-            $i++;
+        //     $i++;
 
-        }while($i < 4);
+        // }while($i < 4);
 
         return 'true';
 

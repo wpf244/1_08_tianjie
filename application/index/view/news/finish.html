@@ -4,9 +4,9 @@
   <body>
     <div data-role="page" id="finish" data-theme="c">
       <div class="ui-content" data-role="main" data-theme="c">
-        {if condition="$money == 100"}<img src="__HOME__/img/fu.gif" width="100%" alt="福">
-        {elseif condition="$money == 1000"}<img src="__HOME__/img/lu.gif" width="100%" alt="禄">
-        {elseif condition="$money == 10000"}<img src="__HOME__/img/shou.gif" width="100%" alt="寿">
+        {if condition="$type == 1"}<img src="__HOME__/img/fu.gif" width="100%" alt="福">
+        {elseif condition="$type == 2"}<img src="__HOME__/img/lu.gif" width="100%" alt="禄">
+        {elseif condition="$type == 3"}<img src="__HOME__/img/shou.gif" width="100%" alt="寿">
       
         {/if}
         <div class="endText">
@@ -15,11 +15,11 @@
             <p>开始:{$detail.start_time|date="Y-m-d H:i:s",###}</p>
             <p>结束:{$detail.end_time|date="Y-m-d H:i:s",###}</p>
           </div>
-          <!-- <p>入侵成功后您将获得能量值:{$money}!可直接点击”提现”按钮进行兑换，也可到个人中心进行统一兑换.点击“下一局”按钮，您可重新选择入侵，寻找宿主！</p> -->
+         
           <p>{$lb_place.desc}</p>
         </div>
         <div class="pb" style="display: flex;justify-content: space-around;">
-            <a class="nextBtn" href="{:url('News/index')}" data-role="none" data-ajax="false" style="background-image:url(__HOME__/img/next-btn2.png);margin: 0;background-size: contain;"></a>
+            <!-- <a class="nextBtn" href="{:url('News/index')}" data-role="none" data-ajax="false" style="background-image:url(__HOME__/img/next-btn2.png);margin: 0;background-size: contain;"></a> -->
         
             <a class="nextBtn" href="{:url('User/index')}" data-role="none" data-ajax="false" style="background-image:url(__HOME__/img/user-btn2.png);margin: 0;"></a>
         </div>

@@ -7,7 +7,7 @@
         <div class="flex flex-between">
           <div class="info">
             <p>昵称: {$re.username}</p>
-            <p>剩余能量: {$re.money}</p>
+            <p>剩余天界币: {$re.money}</p>
           </div>
           <div class="action">
             <div class="rule"></div><a class="user" data-ajax="false" href="{:url('User/index')}"></a><a class="video" data-ajax="false" href="{:url('News/video')}"></a>
@@ -80,7 +80,7 @@
         <div class="flex flex-between">
           <div class="info">
               <p>昵称: {$re.username}</p>
-              <p>剩余能量: {$re.money}</p>
+              <p>剩余天界币: {$re.money}</p>
           </div>
           <div class="action">
               <div class="rule"></div><a class="user" data-ajax="false" href="{:url('User/index')}"></a><a class="video" data-ajax="false" href="{:url('News/video')}"></a>
@@ -91,20 +91,20 @@
           <button id="find" data-role="button" data-theme="c">合成福禄寿</button>
         </div>
         
-        <div class="rule-wrapper">
+        <div class="rule-wrapper" style="background-position: center 60vw;">
             <ul class="inner">
               {$reb.desc}
-              <div class="rpb">注：本活动最终解释权归{$sys.name}公司所有</div>
+              <!-- <div class="rpb">注：本活动最终解释权归{$sys.name}公司所有</div> -->
             </ul>
         </div>
         <div class="find-wrapper">
           <ul class="inner">
             
-            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>1))}" data-ajax="false">紫薇大帝-福星:100能量<img src="__HOME__/img/lv1.png" alt=""></a></li>
+            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>1))}" data-ajax="false">紫薇大帝-福星:100天界币<img src="__HOME__/img/lv1.png" alt=""></a></li>
            
-            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>2))}" data-ajax="false">文昌帝君-禄星:100能量<img src="__HOME__/img/lv2.png" alt=""></a></li>
+            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>2))}" data-ajax="false">文昌帝君-禄星:100天界币<img src="__HOME__/img/lv2.png" alt=""></a></li>
            
-            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>3))}" data-ajax="false">南极老人-寿星:100能量<img src="__HOME__/img/lv3.png" alt=""></a></li>
+            <li class="item"><a href="{:url('News/invade', array('level'=>100,'alig'=>3))}" data-ajax="false">南极老人-寿星:100天界币<img src="__HOME__/img/lv3.png" alt=""></a></li>
          
            
           </ul>

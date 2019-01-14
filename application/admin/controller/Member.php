@@ -58,7 +58,7 @@ class Member extends BaseAdmin
 
     /**
 
-     * 充值能量币
+     * 充值天界币
 
      *
 
@@ -291,9 +291,74 @@ class Member extends BaseAdmin
         return $this->fetch("recharge");
 
     }
-
-
-
+    public function delete()
+    {
+        $id=input('id');
+        $re=db("user")->where("uid=$id")->find();
+        if($re){
+           $del=db("user")->where("uid=$id")->delete();
+           if($del){
+               echo '0';
+           }else{
+               echo '2';
+           }
+        }else{
+            echo '1';
+        }
+    }
+    public function wei_image()
+    {
+        $list=db("user_image")->alias('a')->where("image_status=0")->join('user b','a.u_id = b.uid')->order("id desc")->paginate(10);
+        $this->assign("list",$list);
+        $page=$list->render();
+        $this->assign("page",$page);
+        return $this->fetch();
+    }
+    public function delete_image()
+    {
+        $id=input('id');
+        $re=db("user_image")->where("id=$id")->find();
+        if($re){
+            $del=db("user_image")->where("id=$id")->delete();
+            $this->redirect("wei_image");
+        }else{
+            $this->redirect("wei_image");
+        }
+    }
+    public function wan_image()
+    {
+        $id=input('id');
+        $re=db("user_image")->where("id=$id")->find();
+        if($re){
+            if($re['image_status'] == 0){
+                $res=db("user_image")->where("id=$id")->setField("image_status",1);
+                $this->redirect("wei_image");
+            }else{
+                $this->redirect("wei_image");
+            }
+        }else{
+            $this->redirect("wei_image");
+        }
+    }
+    public function yi_image()
+    {
+        $list=db("user_image")->alias('a')->where("image_status=1")->join('user b','a.u_id = b.uid')->order("id desc")->paginate(10);
+        $this->assign("list",$list);
+        $page=$list->render();
+        $this->assign("page",$page);
+        return $this->fetch();
+    }
+    public function delete_images()
+    {
+        $id=input('id');
+        $re=db("user_image")->where("id=$id")->find();
+        if($re){
+            $del=db("user_image")->where("id=$id")->delete();
+            $this->redirect("yi_image");
+        }else{
+            $this->redirect("yi_image");
+        }
+    }
 
 
 
@@ -410,45 +475,7 @@ class Member extends BaseAdmin
 
     }
 
-    public function delete()
-
-    {
-
-        $id=input('id');
-
-        $re=db("user")->where("uid=$id")->find();
-
-        if($re){
-
-            $data['pid']=$re['pid'];
-
-            $del=db("user")->where("uid=$id")->delete();
-
-            if($del){
-
-                $res=db("user")->where("pid=$id")->select();
-
-                if($res){
-
-                    $resss=db("user")->where("pid=$id")->update($data);
-
-                }
-
-                echo '0';
-
-            }else{
-
-                echo '1';
-
-            }
-
-        }else{
-
-            echo '2';
-
-        }
-
-    }
+    
 
     public function modifys()
 

@@ -15,8 +15,12 @@ class Login extends Common
     public function login()
 
     {
-
-        return $this->fetch();
+        if(empty(session('userid'))){
+            return $this->fetch();
+        }else{
+            $this->redirect('User/index');
+        }
+        
 
     }
 

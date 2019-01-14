@@ -89,6 +89,19 @@ function Post($phone,$code){
     var_dump($result);exit;
 
 }
+function request_Post($url, $rawData) {
+    $ch = curl_init();
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_HEADER,0);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,10);
+    curl_setopt($ch,CURLOPT_POST,1);
+    curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $rawData);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return $data;exit;
+}
 function makeArr($data,&$res,$id=0,$j=0){
     foreach($data as $v){
         if($v['pid']==$id){
@@ -103,3 +116,22 @@ function makeArr($data,&$res,$id=0,$j=0){
         }
     }
  }
+ function Code($url){
+    vendor('phpqrcode.phpqrcode');
+    //生成二维码图片
+    $object = new \QRcode();
+    $level=3;
+    $size=6;
+    $file_path = "./qrcode";
+    if(!file_exists($file_path)){
+        mkdir($file_path);
+    }
+
+    $filename = time() . '.jpg';
+    $ad = $file_path . '/' . $filename;
+    $wx_file_img = '/qrcode/' . $filename;
+    $errorCorrectionLevel =intval($level);//容错级别
+    $matrixPointSize = intval($size);//生成图片大小
+    $object->png($url,$ad, $errorCorrectionLevel, $matrixPointSize, 2);
+    return $wx_file_img;
+}

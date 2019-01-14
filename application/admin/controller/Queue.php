@@ -31,12 +31,13 @@ class Queue extends BaseAdmin{
             $map['phone']=array("like",'%'.$phone.'%');
 
         }
-
+     
         if($status != -1){
 
             $map['status'] = $status;
 
         }
+       
 
         if($username){
 
@@ -81,7 +82,7 @@ class Queue extends BaseAdmin{
             $map['status'] = $status;
 
         }
-
+       
         if($username){
 
             $map['username']=array("like",'%'.$username.'%');
@@ -125,7 +126,7 @@ class Queue extends BaseAdmin{
             $map['status'] = $status;
 
         }
-
+        
         if($username){
 
             $map['username']=array("like",'%'.$username.'%');
