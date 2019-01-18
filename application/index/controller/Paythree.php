@@ -10,116 +10,114 @@ Loader::import('dypay.bankpay', EXTEND_PATH);
 Loader::import('threepay.pay',EXTEND_PATH);
 
 class Paythree extends Controller{
-    public function recharge()
-    {
-        $order_id = uniqid();
-        $amount = Request::instance()->param("amount");   //充值的金额
-        $bank_type = Request::instance()->param("bank_type");   //充值类型 1微信 2支付宝
+//     public function recharge()
+//     {
+//         $order_id = uniqid();
+//         $amount = Request::instance()->param("amount");   //充值的金额
+//         $bank_type = Request::instance()->param("bank_type");   //充值类型 1微信 2支付宝
     
-        $key="8cd297f1308c21f209179ef6d539d14991f34809"; //商户密钥
-        $data['merchant_id']=$merchant_id=10213;  //商户号
-        $data['out_trade_no']=$order_id; //订单号
-        $data['total_fee']=$total_fee=floatval("100"); //付款金额
-        if($bank_type == 1){
-            $data['pay_type']=$pay_type="alipaywap"; //支付宝
-        }else{
-            $data['pay_type']=$pay_type="wxh5"; //微信
-        }
-        
-        $data['notify_url']=$notify_url="http://www.tianjieyouxi.com/Index/Pays/notifyurl"; //回调地址
-        $data['return_url']=$return_url="http://www.tianjieyouxi.com/Index/User/index";  //成功跳转地址
-      
-        $uid=session("userid");
-        db('recharge')->insert(['uid'=>$uid, 'orderid'=>$order_id, 'number'=>$amount, 'create_time'=>time()]);
-        $sing="merchant_id=$merchant_id&total_fee=$total_fee&out_trade_no=$order_id&notify_url=$notify_url&return_url=$return_url&$key";
-        
-        $data['sign']=$sign=md5($sing);
-        
-      //  $url = "merchant_id=$merchant_id&total_fee=$total_fee&out_trade_no=$order_id&notify_url=$notify_url&return_url=$return_url&pay_type=$pay_type&sign=$sign";
-        
-        $url = 'https://www.3000vc.cn/payapi?';
-        
-     //   header("location:" .$urls);
-       
-      request_Post($url, $data);
-       
-     //  var_dump($res);exit;
-    
-    }
-    /**
-     * 模拟post进行url请求
-     * @param string $url
-     * @param array $post_data
-     */
-    function request_post($url, $rawData) {
-          $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL,$url);
-        curl_setopt($ch,CURLOPT_HEADER,0);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,10);
-        curl_setopt($ch,CURLOPT_POST,1);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $rawData);
-        $data = curl_exec($ch);
-        curl_close($ch);
-        return $data;exit;
-
-        
-//         if (empty($url) || empty($post_data)) {
-//             return false;
-//         }
-    
-//         $o = "";
-//         foreach ( $post_data as $k => $v )
-//         {
-//             $o.= "$k=" . urlencode( $v ). "&" ;
-//         }
-//         $post_data = substr($o,0,-1);
-    
-//         $postUrl = $url;
-//         $curlPost = $post_data;
-//         $ch = curl_init();//初始化curl
-//         curl_setopt($ch, CURLOPT_URL,$postUrl);//抓取指定网页
-//         curl_setopt($ch, CURLOPT_HEADER, 0);//设置header
-//         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//要求结果为字符串且输出到屏幕上
-//         curl_setopt($ch, CURLOPT_POST, 1);//post提交方式
-//         curl_setopt($ch, CURLOPT_POSTFIELDS, $curlPost);
-//         $data = curl_exec($ch);//运行curl
-     //   curl_close($ch);
-    
-    }
-//        public function recharge()
-//        {
-//          $order_id = uniqid();
-//          $amount = Request::instance()->param("amount");   //充值的金额
-//          $bank_type = Request::instance()->param("bank_type");   //充值类型 1微信 2支付宝
-
-//          $arr['ordernum']=$order_id;
-//          if($bank_type == 1){
-//              $arr['netway']="WX_QR"; //微信
-//          }else{
-//              $arr['netway']="ZFB_QR"; //支付宝
-//          }
-//          $arr['amount']=floatval($amount);
-//          $arr['callbackurl']="http://www.tianjieyouxi.com/Index/Pays/notifyurl";
-//          $pay = new \threepay\pay();
-//          $pays = $pay->pay($arr); 
-//      //   var_dump($pays);exit;
-//         if($pays['statecode'] == 00){
-//             $uid=session("userid");
-//             db('recharge')->insert(['uid'=>$uid, 'orderid'=>$order_id, 'number'=>$amount, 'create_time'=>time()]);
-//             $ewm=Code($pays['qrcodeurl']);
-//           //  $ewm="/qrcode/1547178821.jpg";
-//             $this->assign("ewm",$ewm);
-//             $this->assign("orderid",$order_id);
-//             return $this->fetch();
+//         $key="8cd297f1308c21f209179ef6d539d14991f34809"; //商户密钥
+//         $data['merchant_id']=$merchant_id=10213;  //商户号
+//         $data['out_trade_no']=$order_id; //订单号
+//         $data['total_fee']=$total_fee=floatval("100"); //付款金额
+//         if($bank_type == 1){
+//             $data['pay_type']=$pay_type="alipaywap"; //支付宝
 //         }else{
-//              $this->redirect("User/index");
-//          }
+//             $data['pay_type']=$pay_type="wxh5"; //微信
+//         }
+        
+//         $data['notify_url']=$notify_url="http://www.tianjieyouxi.com/Index/Pays/notifyurl"; //回调地址
+//         $data['return_url']=$return_url="http://www.tianjieyouxi.com/Index/User/index";  //成功跳转地址
       
-         
+//         $uid=session("userid");
+//         db('recharge')->insert(['uid'=>$uid, 'orderid'=>$order_id, 'number'=>$amount, 'create_time'=>time()]);
+//         $sing="merchant_id=$merchant_id&total_fee=$total_fee&out_trade_no=$order_id&notify_url=$notify_url&return_url=$return_url&$key";
+        
+//         $data['sign']=$sign=md5($sing);
+        
+//       //  $url = "merchant_id=$merchant_id&total_fee=$total_fee&out_trade_no=$order_id&notify_url=$notify_url&return_url=$return_url&pay_type=$pay_type&sign=$sign";
+        
+//         $url = 'https://www.3000vc.cn/payapi?';
+        
+//      //   header("location:" .$urls);
+       
+//       request_Post($url, $data);
+       
+//      //  var_dump($res);exit;
+    
+//     }
+//     /**
+//      * 模拟post进行url请求
+//      * @param string $url
+//      * @param array $post_data
+//      */
+//     function request_post($url, $rawData) {
+//           $ch = curl_init();
+//         curl_setopt($ch,CURLOPT_URL,$url);
+//         curl_setopt($ch,CURLOPT_HEADER,0);
+//         curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+//         curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,10);
+//         curl_setopt($ch,CURLOPT_POST,1);
+//         curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+//         curl_setopt($ch, CURLOPT_POSTFIELDS, $rawData);
+//         $data = curl_exec($ch);
+//         curl_close($ch);
+//         return $data;exit;
 
-//        }
+        
+// //         if (empty($url) || empty($post_data)) {
+// //             return false;
+// //         }
+    
+// //         $o = "";
+// //         foreach ( $post_data as $k => $v )
+// //         {
+// //             $o.= "$k=" . urlencode( $v ). "&" ;
+// //         }
+// //         $post_data = substr($o,0,-1);
+    
+// //         $postUrl = $url;
+// //         $curlPost = $post_data;
+// //         $ch = curl_init();//初始化curl
+// //         curl_setopt($ch, CURLOPT_URL,$postUrl);//抓取指定网页
+// //         curl_setopt($ch, CURLOPT_HEADER, 0);//设置header
+// //         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//要求结果为字符串且输出到屏幕上
+// //         curl_setopt($ch, CURLOPT_POST, 1);//post提交方式
+// //         curl_setopt($ch, CURLOPT_POSTFIELDS, $curlPost);
+// //         $data = curl_exec($ch);//运行curl
+//      //   curl_close($ch);
+    
+//     }
+       public function recharge()
+       {
+         $order_id = uniqid();
+         $amount = Request::instance()->param("amount");   //充值的金额
+         $bank_type = Request::instance()->param("bank_type");   //充值类型 1微信 2支付宝
+
+         $arr['ordernum']=$order_id;
+         if($bank_type == 1){
+             $arr['netway']="WX_QR"; //微信
+         }else{
+             $arr['netway']="ZFB_QR"; //支付宝
+         }
+         $arr['amount']=floatval($amount);
+         $arr['callbackurl']="http://www.tianjieyouxi.com/Index/Pays/notifyurl";
+         $pay = new \threepay\pay();
+         $pays = $pay->pay($arr); 
+     // var_dump($pays);exit;
+        if($pays['statecode'] == 00){
+            $uid=session("userid");
+            db('recharge')->insert(['uid'=>$uid, 'orderid'=>$order_id, 'number'=>$amount, 'create_time'=>time()]);
+            $ewm=Code($pays['qrcodeurl']);
+          //  $ewm="/qrcode/1547178821.jpg";
+            $this->assign("ewm",$ewm);
+            $this->assign("orderid",$order_id);
+            return $this->fetch();
+        }else{
+             $this->redirect("User/index");
+         }
+      
+       }
        public function getjie(){
            $orderid=\input("code");
            $re=db("recharge")->where("orderid = '$orderid'")->find();

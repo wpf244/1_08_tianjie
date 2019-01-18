@@ -45,7 +45,11 @@ class Login extends Common
         $data['code']=$code;
 
         $data['time']=time();
-
+        $reu=db("user")->where("phone='$phone'")->find();
+        if($reu){
+            echo '1';
+        }else{
+            
         $re=\db("sms_code")->where("phone='$phone'")->find();
 
         if($re){
@@ -56,9 +60,13 @@ class Login extends Common
 
         $rea=db("sms_code")->insert($data);
 
- 
+        
 
-        Post($phone,$code);
+        
+            Post($phone,$code);
+        }
+
+      
 
 
 
@@ -301,7 +309,100 @@ class Login extends Common
         $this->redirect('Login/login');
 
     }
+    public function registerf()
+    {
+        $uid=input('uid');
+        if($uid){
+            $re=db("user")->where("uid=$uid")->find();
+            if($re){
+                $this->assign("uid",$uid);
+                return $this->fetch();
+            }else{
+                $this->redirect('register');
+            }
+            
+        }else{
+            $this->redirect('register');
+        }
+        
+    }
+    public function savef()
 
+    {
+
+        $phone=input('phone');
+
+        $res=db("user")->where("phone",$phone)->find();
+
+        $fid=input('fid');
+
+        if($res){
+
+            $this->error("此手机号码已经注册",url('registerf',array('uid'=>$fid)));exit;
+
+        }else{
+
+            $code=input('yzm');
+
+            $re=db("sms_code")->where(['phone'=>$phone,'code'=>$code])->find();
+
+            if($re){
+
+                $time=$re['time'];
+
+                $times=time();
+
+                $c_time=($times-$time);
+
+                if($c_time < 300){
+
+                    $del=db("sms_code")->where("id={$re['id']}")->delete();
+
+                                       
+
+                        $data['phone']=$phone;                      
+
+                        $data['pwd']=md5(\input('pwd'));
+
+                        $data['username']=input('username');
+
+                        $data['time']=time();
+
+                        $data['fid']=$fid;
+
+        
+
+                        $rea=db("user")->insert($data);
+
+                        if($rea){
+
+                            $this->success("注册成功",url('User/recharge_change'));
+
+                        }else{
+
+                            $this->success("注册失败",url('registerf',array('uid'=>$fid)));
+
+                        }
+
+                 
+
+                }else{
+
+                    $this->error("验证码已失效",url('registerf',array('uid'=>$fid)));
+
+                }
+
+            }else{
+
+                $this->error("验证码错误",url('registerf',array('uid'=>$fid)));
+
+            }
+
+        }
+
+      
+
+    }
 
 
 

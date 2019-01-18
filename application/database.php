@@ -32,15 +32,15 @@ return [
 
     // 数据库名
 
-    'database'        => 'tianjieyouxi_',
+    'database'        => '1_08_tianjie',
 
     // 用户名
 
-    'username'        => 'tianjieyouxi_',
+    'username'        => 'root',
 
     // 密码
 
-    'password'        => 'npYck3bXCJRKDGbd',
+    'password'        => 'root',
 
     // 端口
 

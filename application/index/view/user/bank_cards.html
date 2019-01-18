@@ -45,8 +45,12 @@
                         {/volist}
                     </select>
                     <label for="amount"></label>
-                    <input type="number" name="amount" data-theme="c" value="100" readonly >
-                   
+                    <input type="number" name="total_fee" data-theme="c" value="0.01" readonly >
+                    <!-- <input type="hidden" name="merchant_id" data-theme="c" value="{$data['merchant_id']}" readonly >
+                    <input type="hidden" name="out_trade_no" data-theme="c" value="{$data['out_trade_no']}" readonly >
+                    <input type="hidden" name="notify_url" data-theme="c" value="{$data['notify_url']}" readonly >
+                    <input type="hidden" name="return_url" data-theme="c" value="{$data['return_url']}" readonly >
+                    <input type="hidden" name="sign" data-theme="c" value="{$data['sign']}" readonly > -->
                    
                     <div class="pb">
                         <button class="btn" id="btn" type="submit" data-theme="c">提交</button>

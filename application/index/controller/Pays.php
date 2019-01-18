@@ -13,56 +13,86 @@ Loader::import('threepay.notify',EXTEND_PATH);
 class Pays extends Controller
 
 {
+       public function notifyurl()
+       {
+            $amount        = trim(input('amount'));
 
-    public function notifyurl()
-
-    {
-
-        $key="8cd297f1308c21f209179ef6d539d14991f34809";
-        
-        $merchant_id        = trim(input('merchant_id'));
-
-        $status        = trim(input('status'));
-
-        $order_no         = trim(input('order_no'));
-        
-        $total_fee         = trim(input('total_fee'));
-        
-        $out_trade_no      = trim(input('out_trade_no'));
-        
-        $pay_type         = trim(input('pay_type'));
-        
-        $sign              = trim(input('sign'));
-
-       
-        
-        $sing = "merchant_id=$merchant_id&status=$status&order_no=$order_no&out_trade_no=$out_trade_no&total_fee=$total_fee&pay_type=$pay_type&$key";
-
-        $signs=md5($sing);
-        
-        if($sign == $signs){
-            if($status == 1){
+            $ordernum         = trim(input('ordernum'));
             
+            $payresult         = trim(input('payresult'));
             
-            
-                $re=db("recharge")->where("orderid= '$out_trade_no' ")->find();
+            if($payresult == 0){
+                $re=db("recharge")->where("orderid= '$ordernum' ")->find();
             
                 if($re['status'] == 0){
             
-                   $res=db("recharge")->where("orderid= '$out_trade_no' ")->setField("status",1);
-                     
+                $res=db("recharge")->where("orderid= '$ordernum' ")->setField("status",1);
+                    
                     $uid=$re['uid'];
             
-                    db("user")->where("uid=$uid")->setInc("money",$total_fee);
+                    db("user")->where("uid=$uid")->setInc("money",$amount);
                     $user = db("user")->where("uid", $uid)->find();
                     if($user['status'] == 0){
                         db("user")->where("uid", $uid)->setField("status",1);
+                        $fid=$user['fid'];
+                        if($fid != 0){
+                            db("user")->where("uid=$fid")->setInc("money",10);
+                        }
                     }
             
                }
-            
             }
-        }
+            echo 0;
+       }
+    // public function notifyurl()
+
+    // {
+
+    //     $key="8cd297f1308c21f209179ef6d539d14991f34809";
+        
+    //     $merchant_id        = trim(input('merchant_id'));
+
+    //     $status        = trim(input('status'));
+
+    //     $order_no         = trim(input('order_no'));
+        
+    //     $total_fee         = trim(input('total_fee'));
+        
+    //     $out_trade_no      = trim(input('out_trade_no'));
+        
+    //     $pay_type         = trim(input('pay_type'));
+        
+    //     $sign              = trim(input('sign'));
+
+       
+        
+    //     $sing = "merchant_id=$merchant_id&status=$status&order_no=$order_no&out_trade_no=$out_trade_no&total_fee=$total_fee&pay_type=$pay_type&$key";
+
+    //     $signs=md5($sing);
+        
+    //     if($sign == $signs){
+    //         if($status == 1){
+            
+            
+            
+    //             $re=db("recharge")->where("orderid= '$out_trade_no' ")->find();
+            
+    //             if($re['status'] == 0){
+            
+    //                $res=db("recharge")->where("orderid= '$out_trade_no' ")->setField("status",1);
+                     
+    //                 $uid=$re['uid'];
+            
+    //                 db("user")->where("uid=$uid")->setInc("money",$total_fee);
+    //                 $user = db("user")->where("uid", $uid)->find();
+    //                 if($user['status'] == 0){
+    //                     db("user")->where("uid", $uid)->setField("status",1);
+    //                 }
+            
+    //            }
+            
+    //         }
+    //     }
 
         
 
@@ -70,7 +100,7 @@ class Pays extends Controller
 
       
 
-    }
+    // }
 
     public function index()
 
