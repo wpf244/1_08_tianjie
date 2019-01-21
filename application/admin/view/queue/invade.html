@@ -193,7 +193,7 @@
                       <th>合成开始时间</th>
 
                       <th>合成结束时间</th>
-
+                      <th>操作</th>
                     </tr>
 
                   </thead>
@@ -229,6 +229,14 @@
                         {/if}
 
                       </td>
+
+                      <td>
+                       {if condition="$v.need_kill_number neq 3"} 
+                        <button class="btn btn-xs btn-danger" type="button" onclick="dels({$v.queue_id})" title="出局">
+                        出局
+                      </button> 
+                      {/if}
+                    </td>
 
                     </tr>
 
@@ -308,15 +316,41 @@
 
     function dels(id) {
 
-      layer.confirm('你确定删除吗？', {
+      layer.confirm('你确定出局吗？', {
 
         icon: 3
 
       }, function (index) {
 
         layer.close(index);
+        $.ajax({
+          type:"post",
+          url:"{:url('Queue/chu')}",
+          data:{id:id},
+          dataType:"text",
+          success:function(re)
+          {
+            if(re == 0){
+              layer.msg("出局成功");
+              setTimeout("location.reload()",2000);
+            }
+            if(re == 1){
+              layer.msg("系统繁忙请稍后再试");
+              setTimeout("location.reload()",2000);
+            }
+            if(re == 2){
+              layer.msg("已经出局了");
+              setTimeout("location.reload()",2000);
+            }
+            if(re == 3){
+              layer.msg("出局失败");
+              setTimeout("location.reload()",2000);
+            }
 
-        window.location.href = "__URL__/delete/id/" + id;
+          }
+        })
+
+       
 
       });
 

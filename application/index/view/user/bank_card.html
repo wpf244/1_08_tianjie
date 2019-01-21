@@ -35,7 +35,7 @@
 <body>
     <div class="user" data-role="page" id="deposit" data-theme="c">
         <div class="ui-content" data-role="main" data-theme="c">
-            <div class="header">我要充值<a class="back" href="{:url('User/index')}" data-ajax="false"></a></div>
+            <div class="header">我要充值<a class="back" href="#" data-rel="back"></a></div>
             <form action="{:url('Paythree/recharge')}" data-ajax="false" method="post">
                 <div style="margin-top:20px;">
                     <label for="bank"></label>
@@ -45,7 +45,7 @@
                         {/volist}
                     </select>
                     <label for="amount"></label>
-                    <input type="number" name="amount" data-theme="c" value="100" readonly >
+                    <input type="number" name="amount" data-theme="c" value="{$money}" readonly >
                    
                    
                     <div class="pb">

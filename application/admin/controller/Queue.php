@@ -45,7 +45,7 @@ class Queue extends BaseAdmin{
 
         }
 
-        $list = db('queue')->alias('q')->field('q.queue_id,q.status,q.uid,q.look,q.start_time,q.end_time,u.phone,u.username')->order('start_time desc')->where($map)->join('ddsc_user u', 'q.uid=u.uid')->paginate(20,false,['query'=>request()->param()]);
+        $list = db('queue')->alias('q')->field('q.queue_id,q.need_kill_number,q.status,q.uid,q.look,q.start_time,q.end_time,u.phone,u.username')->order('start_time desc')->where($map)->join('ddsc_user u', 'q.uid=u.uid')->paginate(20,false,['query'=>request()->param()]);
 
         $this->assign('list', $list);
 
@@ -313,6 +313,25 @@ class Queue extends BaseAdmin{
 
         }
 
+    }
+    public function chu()
+    {
+        $id=input("id");
+        $re=db("queue")->where("queue_id=$id")->find();
+        if($re){
+           if($re['need_kill_number'] == 3){
+               echo '2';
+           }else{
+               $res=db("queue")->where("queue_id=$id")->setField("need_kill_number",3);
+               if($res){
+                   echo '0';
+               }else{
+                   echo '3';
+               }
+           }
+        }else{
+            echo '1';
+        }
     }
 
 }
