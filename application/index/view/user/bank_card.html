@@ -39,13 +39,13 @@
             <form action="{:url('Paythree/recharge')}" data-ajax="false" method="post">
                 <div style="margin-top:20px;">
                     <label for="bank"></label>
-                    <select name="pay_type">
+                    <select name="bank_type">
                         {volist name="lib_banktype" id="item"}
                         <option value="{$item.code}">{$item.name}</option>
                         {/volist}
                     </select>
                     <label for="amount"></label>
-                    <input type="number" name="amount" data-theme="c" value="{$money}" readonly >
+                    <input type="number" name="amount" data-theme="c" value="10000" readonly >
                    
                    
                     <div class="pb">

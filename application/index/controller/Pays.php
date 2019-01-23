@@ -13,37 +13,37 @@ Loader::import('threepay.notify',EXTEND_PATH);
 class Pays extends Controller
 
 {
-       public function notifyurl()
-       {
-            $amount        = trim(input('amount'));
+    //    public function notifyurl()
+    //    {
+    //         $amount        = trim(input('amount'));
 
-            $ordernum         = trim(input('ordernum'));
+    //         $ordernum         = trim(input('ordernum'));
             
-            $payresult         = trim(input('payresult'));
+    //         $payresult         = trim(input('payresult'));
             
-            if($payresult == 0){
-                $re=db("recharge")->where("orderid= '$ordernum' ")->find();
+    //         if($payresult == 0){
+    //             $re=db("recharge")->where("orderid= '$ordernum' ")->find();
             
-                if($re['status'] == 0){
+    //             if($re['status'] == 0){
             
-                $res=db("recharge")->where("orderid= '$ordernum' ")->setField("status",1);
+    //             $res=db("recharge")->where("orderid= '$ordernum' ")->setField("status",1);
                     
-                    $uid=$re['uid'];
+    //                 $uid=$re['uid'];
             
-                    db("user")->where("uid=$uid")->setInc("money",$amount);
-                    $user = db("user")->where("uid", $uid)->find();
-                    if($user['status'] == 0){
-                        db("user")->where("uid", $uid)->setField("status",1);
-                        $fid=$user['fid'];
-                        if($fid != 0){
-                            db("user")->where("uid=$fid")->setInc("money",10);
-                        }
-                    }
+    //                 db("user")->where("uid=$uid")->setInc("money",$amount);
+    //                 $user = db("user")->where("uid", $uid)->find();
+    //                 if($user['status'] == 0){
+    //                     db("user")->where("uid", $uid)->setField("status",1);
+    //                     $fid=$user['fid'];
+    //                     if($fid != 0){
+    //                         db("user")->where("uid=$fid")->setInc("money",10);
+    //                     }
+    //                 }
             
-               }
-            }
-            echo 0;
-       }
+    //            }
+    //         }
+    //         echo 0;
+    //    }
     // public function notifyurl()
 
     // {
@@ -102,11 +102,11 @@ class Pays extends Controller
 
     // }
 
-    public function index()
+    public function notifyurl()
 
     {
 
-    //    $this->redirect("User/index");
+    
 
         header('Content-Type:textml;charset=GB2312');
 
@@ -152,9 +152,13 @@ class Pays extends Controller
                 $user = db("user")->where("uid", $uid)->find();
                 if($user['status'] == 0){
                     db("user")->where("uid", $uid)->setField("status",1);
+                    $fid=$user['fid'];
+                    if($fid != 0){
+                        db("user")->where("uid=$fid")->setInc("money",10);
+                    }
                 }
 
-                $this->redirect("User/index");
+                die("opstate=0");
 
                
 
@@ -162,7 +166,7 @@ class Pays extends Controller
 
         }
 
-        $this->redirect("User/index");
+        die("opstate=0");
 
     }
 

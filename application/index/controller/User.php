@@ -234,10 +234,17 @@ class User extends BaseHome
 
 
     public function bank_card(){
-
+        
         $lib_banktype	= array(
+            array('name' => '支付宝WAP', 'code' => '1003'),
+        //     array('name' => '微信WAP', 'code' => '1007'),
+        //     array('name' => '支付宝', 'code' => '992'),
+        
+        //    array('name' => '微信支付', 'code' => '1004'),
+        
+          
 
-            array('name' => '支付宝', 'code' => '2'),
+           // array('name' => '支付宝', 'code' => '2'),
 
             // array('name' => '微信', 'code' => '1'),
 

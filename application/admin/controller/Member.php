@@ -109,16 +109,27 @@ class Member extends BaseAdmin
         if($user){
 
             if($user['status'] == 1){
+                
 
                 return array('error_code'=>1, 'data'=>'', 'msg'=>'修改成功!');
 
             }
+            if($user['status'] == 0){
+                $res = db('user')->where("uid=$id")->setField('status', 1);
 
-            $res = db('user')->where("uid=$id")->setField('status', 1);
+                if($res){
+                    $fid=$user['fid'];
+                    if($fid != 0){
+                        $re=db("user")->where("uid=$fid")->find();
+                        if($re){
+                            db("user")->where("uid=$fid")->setInc("money",10);
+                        }
+                    }
+                    return array('error_code'=>1, 'data'=>'', 'msg'=>'修改成功!');
+            }
 
-            if($res){
-
-                return array('error_code'=>1, 'data'=>'', 'msg'=>'修改成功!');
+            
+              
 
             }else{
 
@@ -687,6 +698,13 @@ class Member extends BaseAdmin
 
         }
 
+    }
+    public function look()
+    {
+        $id=input("id");
+        $list=db("user")->where("fid=$id")->select();
+        $this->assign("list",$list);
+        return $this->fetch();
     }
 
 
