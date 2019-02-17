@@ -19,6 +19,7 @@ class User extends BaseHome
     {
 
         $uid=session("userid");
+        $this->assign("uid",$uid);
 
         $re=db("user")->where("uid=$uid")->find();
 
@@ -26,11 +27,7 @@ class User extends BaseHome
 
             $this->assign("re",$re);
 
-            if($re['status'] != 1){
-
-                $this->redirect("User/bank_card");
-
-            }
+           
 
             return $this->fetch();
 
@@ -54,7 +51,7 @@ class User extends BaseHome
 
             if($re['status'] != 1){
 
-                $this->redirect("User/bank_card");
+                $this->redirect("User/index");
 
             }
 

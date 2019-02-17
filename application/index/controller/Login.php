@@ -272,33 +272,43 @@ class Login extends Common
 
         
 
-         $u_name=input('post.phone');
+        $uid=input("uid");
+        if(empty($uid)){
+            $u_name=input('post.phone');
 
-         $pwd=md5(input('post.pwd'));
-
-         $re=db("user")->where(array('phone'=>$u_name,'pwd'=>$pwd))->find();
-
-         if($re){
-
-            session('userid',$re['uid']);
-
-            if($re['status'] != 1){
-
-                $this->success('登陆成功 ^_^',url('User/recharge_change'));
-
+            $pwd=md5(input('post.pwd'));
+   
+            $re=db("user")->where(array('phone'=>$u_name,'pwd'=>$pwd))->find();
+   
+            if($re){
+   
+               session('userid',$re['uid']);
+   
+               if($re['status'] != 1){
+   
+                   $this->success('登陆成功 ^_^',url('User/index'));
+   
+               }else{
+   
+                   $this->success('登陆成功 ^_^',url('News/index'));
+   
+               }
+   
+               
+   
             }else{
-
-                $this->success('登陆成功 ^_^',url('News/index'));
-
+   
+                $this->error('登录失败：用户名或密码错误。',url('Login/login'));
+   
             }
+        }else{
+            session('userid',$uid);
 
-            
+            $this->redirect("User/index");
 
-         }else{
-
-             $this->error('登录失败：用户名或密码错误。',url('Login/login'));
-
-         }
+           // $this->success('登陆成功 ^_^',url('User/index'));
+        } 
+       
 
      }
 

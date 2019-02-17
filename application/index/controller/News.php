@@ -128,6 +128,9 @@ class News extends BaseHome
 
     public function invade(){
 
+        $lb=db("lb")->where("fid",9)->select();
+        $this->assign("lb",$lb);
+
         $uid=session("userid");
 
         //开始入侵时入侵等级(同金额)
@@ -215,7 +218,7 @@ class News extends BaseHome
 
             //没有传值
          //   var_dump($queue);exit;
-            return $this->redirect("User/bank_card");
+            return $this->redirect("User/index");
 
         }
     
@@ -223,7 +226,7 @@ class News extends BaseHome
 
             //天界币不足，去充值
             
-            return $this->redirect("User/recharge_change");
+            return $this->redirect("User/index");
 
         }
 

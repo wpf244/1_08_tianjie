@@ -23,7 +23,7 @@ class BaseHome extends Controller
 
         $re=db("user")->where("uid", session('userid'))->find();
         if($re['status'] != 1 && $controller != "User"){
-            $this->redirect("User/recharge_change");
+            $this->redirect("User/index");
         }
     }
 

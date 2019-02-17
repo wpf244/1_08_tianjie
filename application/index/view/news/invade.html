@@ -82,26 +82,39 @@
 <script src="__HOME__/js/jquery.SuperSlide.2.1.3.js"></script>
 <style>
   /* css 重置 */
-
-      .txtScroll-top{ overflow:hidden;height: 125px;}
-      .txtScroll-top .hd{ overflow:hidden;  height:30px; background:#f4f4f4; padding:0 10px;  }
-      .txtScroll-top .hd .prev,.txtScroll-top .hd .next{ display:block;  width:9px; height:5px; float:right; margin-right:5px; margin-top:10px;  overflow:hidden;
-        cursor:pointer; background:url("images/icoUp.gif") no-repeat;}
-      .txtScroll-top .hd .next{ background:url("images/icoDown.gif") no-repeat;  }
-      .txtScroll-top .hd ul{ float:right; overflow:hidden; zoom:1; margin-top:10px; }
-      .txtScroll-top .hd ul li{ float:left;  width:9px; height:9px; overflow:hidden; margin-right:5px; text-indent:-999px; cursor:pointer; background:url("images/icoCircle.gif") 0 -9px no-repeat; }
-      .txtScroll-top .hd ul li.on{ background-position:0 0; }
-      .txtScroll-top .bd{ padding:15px;padding-left: 10%;  }
-      .infoList li {font-size: 12px;color:#3E2013}
-      .txtScroll-top .infoList li{ height:24px; line-height:24px;   }
-      .txtScroll-top .infoList li .date{ float:right; color:#999;  }
-      .invadeinfo {
-        padding: 30px 0 30px 30px;
-      }
-      .phone {
-        color: red;
-      }
-
+		.txtScroll-top{ overflow:hidden;height: 125px;}
+		.txtScroll-top .hd{ overflow:hidden;  height:30px; background:#f4f4f4; padding:0 10px;  }
+		.txtScroll-top .hd .prev,.txtScroll-top .hd .next{ display:block;  width:9px; height:5px; float:right; margin-right:5px; margin-top:10px;  overflow:hidden;
+			cursor:pointer; background:url("images/icoUp.gif") no-repeat;}
+		.txtScroll-top .hd .next{ background:url("images/icoDown.gif") no-repeat;  }
+		.txtScroll-top .hd ul{ float:right; overflow:hidden; zoom:1; margin-top:10px; }
+		.txtScroll-top .hd ul li{ float:left;  width:9px; height:9px; overflow:hidden; margin-right:5px; text-indent:-999px; cursor:pointer; background:url("images/icoCircle.gif") 0 -9px no-repeat; }
+		.txtScroll-top .hd ul li.on{ background-position:0 0; }
+		.txtScroll-top .bd{ padding:15px;padding-left: 10%;  }
+		.txtScroll-top .infoList li {font-size: 12px;color:#3E2013;}
+		.txtScroll-top .infoList li { height:24px; line-height:24px;   }
+		.txtScroll-top .infoList li .date{ float:right; color:#999;  }
+		.invadeinfo {
+			padding: 30px 0 30px 30px;
+		}
+		.phone {
+			color: red;
+		}
+		
+		.notic {
+			color: #d45624;
+			background-color: #f7d793;
+			padding: 4px 10px;
+			border-radius: 2px;
+		}
+		.txtMarquee{position:relative;overflow:hidden;   }
+		.txtMarquee .hd{ overflow:hidden;  height:30px; background:#f4f4f4; padding:0 10px;  }
+		.txtMarquee .bd{ padding:4px 10px; }
+		.txtMarquee .bd .tempWrap{ width:100%!important; }
+		/* 用 !important覆盖SuperSlide自动生成的宽度，这样就可以手动控制可视宽度。 */
+		.txtMarquee .bd ul{ overflow:hidden!important; zoom:1; padding-left: 0;width:100%;list-style: none;margin: 0;}
+		.txtMarquee .bd ul li {float:left;display:inline-block;width:auto!important;height:24px; line-height:24px;text-align:left;color: #b70101;font-size: 16px;}
+		/* .txtMarquee .bd ul li{ margin-right:20px;  float:left; height:24px; line-height:24px;  text-align:left; _display:inline; width:auto !important;} */
 </style>
 <body>
   <div data-role="page" id="invade" data-theme="c">
@@ -137,24 +150,46 @@
             </tr>
           </table>
         </div>
-        <div>
-
-        </div>
+      
+				
         <div class="compound" data-statu="0" monster="{$monster.id}" style="display:{if condition='$status == 1'}display{else /}None{/if}">合成</div>
-      </div>
-      <div class="action"><a class="user" href="{:url('User/index')}" data-ajax="false"></a><a class="video" href="{:url('News/video')}"
-          data-ajax="false"></a></div>
-    </div>
-    <!-- <audio src="__HOME__/music.mp3" autoplay loop></audio> -->
-    <div class="invadeinfo" style="color:aliceblue;font-size:13px;">
-      <div class="txtScroll-top">
-        <div class="bd">
-          <ul class="infoList"></ul>
-        </div>
+      <!-- </div> -->
+			
+			<div class="txtMarquee notic">
+				<div class="bd">
+					<ul class="infoList">
+              <li>sadfasdfasdfadsf</li>
+              <li>sadfasdfasdfadsf</li>
+            <!-- {volist name="lb" id="v"}
+            <li>{:strip_tags($v['desc'])}</li>
+						{/volist} -->
+					</ul>
+				</div>
+			</div>
+			<script type="text/javascript">
+				jQuery(".txtMarquee").slide({mainCell:".bd ul",autoPlay:true,effect:"leftMarquee",vis:2,interTime:50});
+			</script>
+<div>
 
+      <div class="action">
+				<a class="user" href="{:url('User/index')}" data-ajax="false"></a>
+				<a class="video" href="{:url('News/video')}"
+          data-ajax="false"></a>
+			</div>
+    
+		
+    <!-- <audio src="__HOME__/music.mp3" autoplay loop></audio> -->
+			<div class="invadeinfo" style="color:aliceblue;font-size:13px;">
+				<div class="txtScroll-top">
+					<div class="bd">
+						<ul class="infoList"></ul>
+					</div>
+				</div>
       </div>
     </div>
   </div>
+	</div>
+	</div>
 </body>
 
 <div id="log_id" data_id="{$log.id}" all_number="0"></div>
@@ -261,19 +296,6 @@
       success: function(res){
         var data = res['queue'];
         var user = res['user'];
-        // var number = queue_id*12-data['queue_id'];
-        // if(number <= 10){
-        //   if(number <= 0){
-        //     number = 0;
-        //   }
-        //   // $(".invadeinfo").append("<span class='content'>距离契约神兽还差:"+number+"</br></span>");
-        //   var number = parseInt($("#log_id").attr("all_number"))
-        //   if(number + 1 > 4){
-        //     $(".content").first().remove()
-        //   }else{
-        //     $("#log_id").attr("all_number", number+1);
-        //   }
-        // }
         if(user['need_kill_number'] > user['already_kill_number']){
           
            if ($(".compound:hidden").length) {
@@ -303,8 +325,6 @@
       djs();
      }
    }
-   
-    
   }, 20000)
 
   // 随机号码滚动
@@ -327,11 +347,11 @@ for(let i = 0; i < 100; i++) {
       }
 
 for(let i of phoneList) {
-  $('.infoList').append('<li>恭喜用户<span class="phone">'+ i +'</span>合成福禄寿</li>')
+  $('.txtScroll-top .infoList').append('<li>恭喜用户<span class="phone">'+ i +'</span>合成福禄寿</li>')
   
 }
-$(".txtScroll-top").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:8,interTime:50,trigger:"click"});
 
+$(".txtScroll-top").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:8,interTime:50,trigger:"click"});
 </script>
 
 </html>
